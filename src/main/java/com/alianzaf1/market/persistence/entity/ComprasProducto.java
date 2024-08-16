@@ -3,6 +3,7 @@ package com.alianzaf1.market.persistence.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "compras_productos")
@@ -16,6 +17,14 @@ public class ComprasProducto {
     private BigDecimal total;
 
     private Boolean estado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_compra", insertable = false,updatable = false)
+    private Compra compra;
+
+    @ManyToOne
+    @JoinColumn(name = "id_producto",insertable = false,updatable = false)
+    private Producto producto;
 
     public Boolean getEstado() {
         return estado;
