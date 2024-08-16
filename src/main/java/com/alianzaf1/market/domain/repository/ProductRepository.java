@@ -1,14 +1,14 @@
 package com.alianzaf1.market.domain.repository;
-
-import com.alianzaf1.market.persistence.entity.Producto;
+import com.alianzaf1.market.domain.Product;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository {
-   List<Producto> getAll();
-   Optional<List<Producto>> getByCategoria(int categoryId);
-   Optional<List<Producto>> getScarseProducts(int quantity);
-   Optional<Producto> getProducto(int idProducto);
-   public Producto save(Producto producto);
+   List<Product> getAll();
+   Optional<List<Product>> getByCategoria(int categoryId);
+   Optional<List<Product>> getScarseProducts(int quantity);
+   Optional<Product> getProducto(int productId);
+   Product save(Product product);
+   void delete(int productId);
 }

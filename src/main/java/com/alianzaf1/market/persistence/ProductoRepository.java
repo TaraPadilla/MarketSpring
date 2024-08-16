@@ -1,5 +1,4 @@
 package com.alianzaf1.market.persistence;
-
 import com.alianzaf1.market.persistence.crud.ProductoCrudRepository;
 import com.alianzaf1.market.persistence.entity.Producto;
 import org.springframework.stereotype.Repository;
