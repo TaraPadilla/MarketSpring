@@ -2,6 +2,8 @@ package com.alianzaf1.market.persistence.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "productos")
 public class Producto {
@@ -20,13 +22,25 @@ public class Producto {
     private String codigoBarras;
 
     @Column(name = "precio_venta")
-    private Double precioVenta;
+    private BigDecimal precioVenta;
 
     @Column(name = "cantidad_stock")
     private Integer cantidadStock;
 
     @Column
     private Boolean estado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria",insertable = false, updatable = false)
+    private Categoria categoria;
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public Integer getIdProducto() {
         return idProducto;
@@ -60,11 +74,11 @@ public class Producto {
         this.codigoBarras = codigoBarras;
     }
 
-    public Double getPrecioVenta() {
+    public BigDecimal getPrecioVenta() {
         return precioVenta;
     }
 
-    public void setPrecioVenta(Double precioVenta) {
+    public void setPrecioVenta(BigDecimal precioVenta) {
         this.precioVenta = precioVenta;
     }
 
