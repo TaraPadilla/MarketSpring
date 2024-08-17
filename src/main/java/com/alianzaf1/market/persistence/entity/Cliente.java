@@ -9,7 +9,7 @@ import java.util.List;
 public class Cliente {
     @Id
     @Column(name = "id", nullable = false)
-    private String id;
+    private String idCliente;
 
     @Column
     private String nombre;
@@ -68,11 +68,11 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public String getId() {
-        return id;
+    public String getIdCliente() {
+        return idCliente;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdCliente(String id) {
+        this.idCliente = id;
     }
 }

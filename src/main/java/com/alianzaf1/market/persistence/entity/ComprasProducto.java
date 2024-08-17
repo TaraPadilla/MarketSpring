@@ -10,7 +10,7 @@ import java.util.List;
 public class ComprasProducto {
 
     @EmbeddedId
-    private ComprasProductoPK id;
+    private ComprasProductoPK idComprasProductoPK;
 
     private Integer cantidad;
 
@@ -19,12 +19,29 @@ public class ComprasProducto {
     private Boolean estado;
 
     @ManyToOne
+    @MapsId("idCompra")
     @JoinColumn(name = "id_compra", insertable = false,updatable = false)
     private Compra compra;
 
     @ManyToOne
     @JoinColumn(name = "id_producto",insertable = false,updatable = false)
     private Producto producto;
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
 
     public Boolean getEstado() {
         return estado;
@@ -50,11 +67,11 @@ public class ComprasProducto {
         this.cantidad = cantidad;
     }
 
-    public ComprasProductoPK getId() {
-        return id;
+    public ComprasProductoPK getIdComprasProductoPK() {
+        return idComprasProductoPK;
     }
 
-    public void setId(ComprasProductoPK id) {
-        this.id = id;
+    public void setIdComprasProductoPK(ComprasProductoPK id) {
+        this.idComprasProductoPK = id;
     }
 }

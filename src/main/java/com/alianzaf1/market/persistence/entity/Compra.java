@@ -30,11 +30,27 @@ public class Compra {
     private String estado;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable = false,updatable = false)
+    @JoinColumn(name = "id_cliente", insertable = false,updatable = false)
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "compra")
+    @OneToMany(mappedBy = "compra", cascade = {CascadeType.ALL})
     private List<ComprasProducto> productoList;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<ComprasProducto> getProductoList() {
+        return productoList;
+    }
+
+    public void setProductoList(List<ComprasProducto> productoList) {
+        this.productoList = productoList;
+    }
 
     public Integer getIdCompra() {
         return idCompra;
