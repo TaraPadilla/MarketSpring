@@ -2,6 +2,7 @@ package com.alianzaf1.market.domain.service;
 
 import com.alianzaf1.market.domain.Product;
 import com.alianzaf1.market.domain.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
-
+   @Autowired
     private ProductRepository productRepository;
 
     public List<Product> getAll(){

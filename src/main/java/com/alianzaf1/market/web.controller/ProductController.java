@@ -3,8 +3,7 @@ package com.alianzaf1.market.web.controller;
 import com.alianzaf1.market.domain.Product;
 import com.alianzaf1.market.domain.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,23 +14,24 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @RequestMapping("/all")
     public List<Product> getAll(){
        return productService.getAll();
     }
-
-    public Optional<Product> getProduct(int productId){
+    @GetMapping("/{id}")
+    public Optional<Product> getProduct(@PathVariable("id") int productId){
         return productService.getProduct(productId);
     }
-
-    public List<Product> getByCategoria(int categoryId){
+    @GetMapping("/category/{id}")
+    public List<Product> getByCategoria(@PathVariable("id") int categoryId){
         return productService.getByCategoria(categoryId);
     }
-
-    public Product save(Product product){
+    @PostMapping("/save")
+    public Product save(@RequestBody Product product){
         return productService.save(product);
     }
-
-    public boolean delete(int productId) {
+    @DeleteMapping("/delete/{id}")
+    public boolean delete(@PathVariable("id") int productId) {
         return productService.delete(productId);
     }
 }
