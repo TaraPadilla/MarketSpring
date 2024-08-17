@@ -17,7 +17,7 @@ public class Cliente {
     private String apellidos;
 
     @Column
-    private Integer celular;
+    private Double celular;
 
     @Column
     private String direccion;
@@ -44,11 +44,11 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public Integer getCelular() {
+    public Double getCelular() {
         return celular;
     }
 
-    public void setCelular(Integer celular) {
+    public void setCelular(Double celular) {
         this.celular = celular;
     }
 
