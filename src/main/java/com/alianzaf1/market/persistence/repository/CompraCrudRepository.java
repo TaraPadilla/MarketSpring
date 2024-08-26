@@ -1,4 +1,4 @@
-package com.alianzaf1.market.persistence.crud;
+package com.alianzaf1.market.persistence.repository;
 
 import com.alianzaf1.market.persistence.entity.Compra;
 

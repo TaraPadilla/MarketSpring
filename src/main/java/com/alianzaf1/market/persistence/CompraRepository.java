@@ -2,10 +2,9 @@ package com.alianzaf1.market.persistence;
 
 import com.alianzaf1.market.domain.Purchase;
 import com.alianzaf1.market.domain.repository.PurchaseRepository;
-import com.alianzaf1.market.persistence.crud.CompraCrudRepository;
+import com.alianzaf1.market.persistence.repository.CompraCrudRepository;
 import com.alianzaf1.market.persistence.entity.Compra;
 import com.alianzaf1.market.persistence.mapper.PurchaseMapper;
-import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -32,7 +31,7 @@ public class CompraRepository implements PurchaseRepository {
 
     @Override
     public Purchase save(Purchase purchase) {
-        Compra compra = purchaseMapper.toCompra(purchase);
+            Compra compra = purchaseMapper.toCompra(purchase);
         compra.getProductoList().forEach(
                 producto -> producto.setCompra(compra)
         );
