@@ -1,12 +1,9 @@
-package com.alianzaf1.market.persistence.crud;
+package com.alianzaf1.market.persistence.repository;
 
-import com.alianzaf1.market.persistence.ProductoRepository;
-import com.alianzaf1.market.persistence.entity.Producto;
-import org.springframework.data.jpa.repository.Query;
+import com.alianzaf1.market.persistence.entity.MKProductos.Producto;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductoCrudRepository extends CrudRepository<Producto, Integer>
 {

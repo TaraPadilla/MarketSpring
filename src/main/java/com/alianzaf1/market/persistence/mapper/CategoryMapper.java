@@ -1,7 +1,7 @@
 package com.alianzaf1.market.persistence.mapper;
 
 import com.alianzaf1.market.domain.Category;
-import com.alianzaf1.market.persistence.entity.Categoria;
+import com.alianzaf1.market.persistence.entity.MKProductos.Categoria;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,6 +17,7 @@ public interface CategoryMapper {
     Category toCategory(Categoria categoria);
 
     @InheritInverseConfiguration
+    @Mapping(target = "productos", ignore = true)
     Categoria toCategoria(Category category);
 
 }

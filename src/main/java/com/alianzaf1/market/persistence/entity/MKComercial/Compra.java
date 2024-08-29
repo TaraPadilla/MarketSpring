@@ -1,9 +1,10 @@
-package com.alianzaf1.market.persistence.entity;
+package com.alianzaf1.market.persistence.entity.MKComercial;
 
+import com.alianzaf1.market.persistence.entity.MKBases.Cliente;
+import com.alianzaf1.market.persistence.entity.MKProductos.ComprasProducto;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,11 +31,27 @@ public class Compra {
     private String estado;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable = false,updatable = false)
+    @JoinColumn(name = "id_cliente", insertable = false,updatable = false)
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "compra")
+    @OneToMany(mappedBy = "compra", cascade = {CascadeType.ALL})
     private List<ComprasProducto> productoList;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<ComprasProducto> getProductoList() {
+        return productoList;
+    }
+
+    public void setProductoList(List<ComprasProducto> productoList) {
+        this.productoList = productoList;
+    }
 
     public Integer getIdCompra() {
         return idCompra;

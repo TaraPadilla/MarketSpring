@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="PostgreSQL" database="PostgreSQL" id="PostgreSQL-91b" >
+	<schema name="base" >
+		<table name="clientes" row_count="3" spec="" >
+			<column name="id" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="nombre" type="varchar" length="255" jt="12" />
+			<column name="apellidos" type="varchar" length="255" jt="12" />
+			<column name="celular" type="double precision" jt="3" />
+			<column name="direccion" type="varchar" length="255" jt="12" />
+			<column name="correo_electronico" type="varchar" length="255" jt="12" />
+			<index name="clientes_pkey" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="compras" row_count="1" spec="" >
+			<column name="id_compra" type="integer" length="32" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('base.compras_id_compra_seq'::regclass)]]></defo>
+			</column>
+			<column name="id_cliente" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="fecha" type="timestamp" jt="93" />
+			<column name="medio_pago" type="varchar" length="1" jt="12" />
+			<column name="comentario" type="varchar" length="255" jt="12" />
+			<column name="estado" type="varchar" length="1" jt="12" />
+			<index name="compras_pkey" unique="PRIMARY_KEY" >
+				<column name="id_compra" />
+			</index>
+			<fk name="fk_COMPRAS_CLIENTES1" to_schema="base" to_table="clientes" options="" >
+				<fk_column name="id_cliente" pk="id" />
+			</fk>
+		</table>
+		<table name="empresa" row_count="0" spec="" >
+			<column name="id_empresa" type="integer" length="32" jt="4" mandatory="y" >
+				<identity><![CDATA[GENERATED  ALWAYS AS IDENTITY]]></identity>
+			</column>
+			<column name="nombre" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="descripcion" type="varchar" jt="12" mandatory="y" />
+			<column name="activa" prior="estado" type="boolean" jt="16" >
+				<defo><![CDATA[true]]></defo>
+			</column>
+			<index name="pk_empresa" unique="PRIMARY_KEY" >
+				<column name="id_empresa" />
+			</index>
+		</table>
+		<table name="usuario" >
+			<column name="id_usuario" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[GENERATED ALWAYS AS IDENTITY ]]></identity>
+			</column>
+			<column name="id_empresa" type="integer" jt="4" mandatory="y" />
+			<column name="tipo_usuario" type="char" length="1" jt="1" mandatory="y" />
+			<index name="pk_usuario" unique="PRIMARY_KEY" >
+				<column name="id_usuario" />
+			</index>
+			<fk name="fk_usuario_empresa" to_schema="base" to_table="empresa" delete_action="restrict" update_action="restrict" >
+				<fk_column name="id_empresa" pk="id_empresa" />
+			</fk>
+		</table>
+		<sequence name="compras_id_compra_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+	</schema>
+	<schema name="comercial" >
+		<table name="cotizacion" spec="" >
+			<column name="id_cotizacion" type="integer" length="32" jt="4" mandatory="y" >
+				<identity><![CDATA[GENERATED  BY DEFAULT AS IDENTITY]]></identity>
+			</column>
+			<column name="id_usuario" type="integer" jt="4" />
+			<column name="estado" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="fecha_creacion" type="timestamp" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP]]></defo>
+			</column>
+			<column name="notas" type="varchar" length="255" jt="12" />
+			<column name="precio_total" type="numeric" length="6" decimal="2" jt="2" mandatory="y" />
+			<index name="cotizacion_pkey" unique="PRIMARY_KEY" >
+				<column name="id_cotizacion" />
+			</index>
+			<fk name="fk_cotizacion_usuario" to_schema="base" to_table="usuario" delete_action="restrict" update_action="restrict" >
+				<fk_column name="id_usuario" pk="id_usuario" />
+			</fk>
+		</table>
+		<table name="servicio_cotizacion" prior="serviciocotizacion" >
+			<comment><![CDATA[Intermedia]]></comment>
+			<column name="id_servicio" type="integer" jt="4" mandatory="y" />
+			<column name="id_cotizacion" type="integer" jt="4" mandatory="y" />
+			<column name="cantidad" type="integer" jt="4" mandatory="y" />
+			<column name="precio" prior="precioitem" type="double precision" jt="3" />
+			<index name="pk_servicio_cotizacion" unique="PRIMARY_KEY" >
+				<column name="id_servicio" />
+				<column name="id_cotizacion" />
+			</index>
+			<fk name="fk_servicio_cotizacion_servicio" to_schema="services" to_table="servicio" >
+				<fk_column name="id_servicio" pk="id_servicio" />
+			</fk>
+			<fk name="fk_servicio_cotizacion_cotizacion" to_schema="comercial" to_table="cotizacion" >
+				<fk_column name="id_cotizacion" pk="id_cotizacion" />
+			</fk>
+		</table>
+	</schema>
+	<schema name="products" >
+		<table name="catalogo" >
+			<column name="id_catalogo" type="integer" jt="4" mandatory="y" >
+				<identity><![CDATA[GENERATED ALWAYS AS IDENTITY ]]></identity>
+			</column>
+			<column name="id_empresa" type="integer" jt="4" />
+			<column name="nombre" type="varchar" length="255" jt="12" mandatory="y" />
+			<index name="pk_catalogo" unique="PRIMARY_KEY" >
+				<column name="id_catalogo" />
+			</index>
+			<fk name="fk_catalogo_empresa" to_schema="base" to_table="empresa" delete_action="restrict" update_action="restrict" >
+				<fk_column name="id_empresa" pk="id_empresa" />
+			</fk>
+			<fk name="fk_catalogo_catalogo_productos" to_schema="products" to_table="catalogo_productos" >
+				<fk_column name="id_catalogo" pk="id_catalogo" />
+			</fk>
+		</table>
+		<table name="catalogo_productos" >
+			<column name="id_catalogo" type="integer" jt="4" mandatory="y" />
+			<column name="id_producto" type="integer" jt="4" mandatory="y" />
+			<index name="unq_catalogo_productos_id_catalogo" unique="UNIQUE_KEY" >
+				<column name="id_catalogo" />
+			</index>
+			<fk name="fk_catalogo_productos_productos" to_schema="products" to_table="productos" >
+				<fk_column name="id_producto" pk="id_producto" />
+			</fk>
+		</table>
+		<table name="categorias" row_count="8" spec="" >
+			<column name="id_categoria" type="integer" length="32" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('products.categorias_id_categoria_seq'::regclass)]]></defo>
+			</column>
+			<column name="descripcion" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="estado" type="boolean" jt="16" mandatory="y" />
+			<index name="categorias_pkey" unique="PRIMARY_KEY" >
+				<column name="id_categoria" />
+			</index>
+		</table>
+		<table name="compras_productos" row_count="5" spec="" >
+			<column name="id_compra" type="integer" length="32" jt="4" mandatory="y" />
+			<column name="id_producto" type="integer" length="32" jt="4" mandatory="y" />
+			<column name="cantidad" type="integer" length="32" jt="4" />
+			<column name="total" type="numeric" length="38" decimal="2" jt="2" />
+			<column name="estado" type="boolean" jt="16" />
+			<index name="compras_productos_pkey" unique="PRIMARY_KEY" >
+				<column name="id_compra" />
+				<column name="id_producto" />
+			</index>
+			<fk name="fk_COMPRAS_PRODUCTOS_COMPRAS1" to_schema="base" to_table="compras" options="" >
+				<fk_column name="id_compra" pk="id_compra" />
+			</fk>
+			<fk name="fk_COMPRAS_PRODUCTOS_PRODUCTOS1" to_schema="products" to_table="productos" options="" >
+				<fk_column name="id_producto" pk="id_producto" />
+			</fk>
+		</table>
+		<table name="productos" row_count="50" spec="" >
+			<column name="id_producto" type="integer" length="32" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('products.productos_id_producto_seq'::regclass)]]></defo>
+			</column>
+			<column name="nombre" type="varchar" length="255" jt="12" />
+			<column name="id_categoria" type="integer" length="32" jt="4" mandatory="y" />
+			<column name="codigo_barras" type="varchar" length="255" jt="12" />
+			<column name="precio_venta" type="numeric" length="38" decimal="2" jt="2" />
+			<column name="cantidad_stock" type="integer" length="32" jt="4" mandatory="y" />
+			<column name="estado" type="boolean" jt="16" />
+			<index name="productos_pkey" unique="PRIMARY_KEY" >
+				<column name="id_producto" />
+			</index>
+			<fk name="fk_PRODUCTOS_CATEGORIAS" to_schema="products" to_table="categorias" options="" >
+				<fk_column name="id_categoria" pk="id_categoria" />
+			</fk>
+		</table>
+		<sequence name="categorias_id_categoria_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="productos_id_producto_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+	</schema>
+	<schema name="public" >
+		<comment><![CDATA[standard public schema]]></comment>
+	</schema>
+	<schema name="services" >
+		<table name="caracteristica" row_count="0" spec="" >
+			<column name="id_caracteristica" type="integer" length="32" jt="4" mandatory="y" >
+				<identity><![CDATA[GENERATED  BY DEFAULT AS IDENTITY]]></identity>
+			</column>
+			<column name="nombre" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="descripcion" type="varchar" length="255" jt="12" />
+			<index name="caracteristica_pkey" unique="PRIMARY_KEY" >
+				<column name="id_caracteristica" />
+			</index>
+		</table>
+		<table name="componente" row_count="0" spec="" >
+			<column name="id_componente" type="integer" length="32" jt="4" mandatory="y" >
+				<identity><![CDATA[GENERATED  BY DEFAULT AS IDENTITY]]></identity>
+			</column>
+			<column name="descripcion" type="varchar" length="255" jt="12" mandatory="y" />
+			<column name="nombre" type="varchar" length="50" jt="12" mandatory="y" />
+			<column name="precio" type="numeric" length="6" decimal="2" jt="2" mandatory="y" />
+			<column name="id_servicio" type="integer" length="32" jt="4" />
+			<index name="componente_pkey" unique="PRIMARY_KEY" >
+				<column name="id_componente" />
+			</index>
+		</table>
+		<table name="servicio" row_count="0" spec="" >
+			<column name="id_servicio" type="integer" length="32" jt="4" mandatory="y" >
+				<identity><![CDATA[GENERATED  BY DEFAULT AS IDENTITY]]></identity>
+			</column>
+			<column name="id_empresa" type="integer" jt="4" mandatory="y" >
+				<comment><![CDATA[Empresa que presta este servicio]]></comment>
+			</column>
+			<column name="descripcion" type="varchar" length="150" jt="12" mandatory="y" />
+			<column name="nombre_servicio" type="varchar" length="30" jt="12" mandatory="y" />
+			<column name="visible" type="boolean" jt="16" mandatory="y" />
+			<index name="servicio_pkey" unique="PRIMARY_KEY" >
+				<column name="id_servicio" />
+			</index>
+			<index name="unq_servicio_nombre_servicio" unique="UNIQUE_KEY" >
+				<column name="nombre_servicio" />
+			</index>
+			<fk name="fk_servicio_empresa" to_schema="base" to_table="empresa" delete_action="restrict" update_action="restrict" options="" >
+				<fk_column name="id_empresa" pk="id_empresa" />
+			</fk>
+		</table>
+		<table name="servicio_caracteristica" spec="" >
+			<column name="id_servicio" type="integer" length="32" jt="4" mandatory="y" />
+			<column name="id_caracteristica" type="integer" length="32" jt="4" mandatory="y" />
+			<column name="cantidad" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[1]]></defo>
+				<comment><![CDATA[Cantidad máxima asignada al servicio]]></comment>
+			</column>
+			<index name="servicio_caracteristica_pkey" unique="PRIMARY_KEY" >
+				<column name="id_servicio" />
+				<column name="id_caracteristica" />
+			</index>
+			<fk name="servicio_caracteristica_id_servicio_fkey" to_schema="services" to_table="servicio" >
+				<fk_column name="id_servicio" pk="id_servicio" />
+			</fk>
+			<fk name="servicio_caracteristica_id_caracteristica_fkey" to_schema="services" to_table="caracteristica" >
+				<fk_column name="id_caracteristica" pk="id_caracteristica" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Completa" id="Layout-1adf" show_relation="columns" >
+		<entity schema="services" name="caracteristica" color="3986C1" x="560" y="272" />
+		<entity schema="products" name="catalogo" color="C1D8EE" x="784" y="208" />
+		<entity schema="products" name="catalogo_productos" color="C1D8EE" x="976" y="336" />
+		<entity schema="products" name="categorias" color="3986C1" x="768" y="80" />
+		<entity schema="base" name="clientes" color="3986C1" x="816" y="480" />
+		<entity schema="services" name="componente" color="3986C1" x="320" y="272" />
+		<entity schema="comercial" name="cotizacion" color="3986C1" x="512" y="496" />
+		<entity schema="base" name="empresa" color="F4F3BE" x="48" y="80" />
+		<entity schema="products" name="productos" color="3986C1" x="928" y="80" />
+		<entity schema="services" name="servicio" color="3986C1" x="304" y="80" />
+		<entity schema="services" name="servicio_caracteristica" color="3986C1" x="544" y="80" />
+		<entity schema="comercial" name="servicio_cotizacion" color="C1D8EE" x="320" y="496" />
+		<entity schema="base" name="usuario" color="C1D8EE" x="48" y="304" />
+		<group name="comercial" color="ECF0F7" >
+			<entity schema="comercial" name="servicio_cotizacion" />
+			<entity schema="comercial" name="cotizacion" />
+		</group>
+		<group name="base" color="FFFF99" >
+			<entity schema="base" name="empresa" />
+			<entity schema="base" name="usuario" />
+		</group>
+		<group name="services" color="C4E0F9" >
+			<entity schema="services" name="componente" />
+			<entity schema="services" name="servicio" />
+			<entity schema="services" name="caracteristica" />
+			<entity schema="services" name="servicio_caracteristica" />
+		</group>
+		<group name="products" color="C4E0F9" >
+			<entity schema="products" name="categorias" />
+			<entity schema="products" name="productos" />
+			<entity schema="products" name="catalogo" />
+			<entity schema="products" name="catalogo_productos" />
+		</group>
+		<browser id="Browse-ce4" name="cotizacion_001" confirm_updates="y" confirmed="y" >
+			<browse_table schema="comercial" entity="cotizacion" x="20" y="20" width="270" height="-24" />
+		</browser>
+		<browser id="Browse-31d" name="empresa" confirm_updates="y" confirmed="y" >
+			<browse_table schema="base" entity="empresa" x="20" y="20" width="270" height="172" />
+		</browser>
+		<browser id="Browse-1df1" name="empresa_001" confirm_updates="y" confirmed="y" >
+			<browse_table schema="base" entity="empresa" x="20" y="20" width="270" height="176" />
+		</browser>
+		<browser id="Browse-1d0b" name="usuario" confirm_updates="y" confirmed="y" >
+			<browse_table schema="base" entity="usuario" x="587" y="444" width="934" height="203" />
+		</browser>
+	</layout>
+</project>

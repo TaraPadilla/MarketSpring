@@ -1,5 +1,6 @@
-package com.alianzaf1.market.persistence.entity;
+package com.alianzaf1.market.persistence.entity.MKBases;
 
+import com.alianzaf1.market.persistence.entity.MKComercial.Compra;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public class Cliente {
     @Id
     @Column(name = "id", nullable = false)
-    private String id;
+    private String idCliente;
 
     @Column
     private String nombre;
@@ -17,7 +18,7 @@ public class Cliente {
     private String apellidos;
 
     @Column
-    private Integer celular;
+    private Double celular;
 
     @Column
     private String direccion;
@@ -44,11 +45,11 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public Integer getCelular() {
+    public Double getCelular() {
         return celular;
     }
 
-    public void setCelular(Integer celular) {
+    public void setCelular(Double celular) {
         this.celular = celular;
     }
 
@@ -68,11 +69,11 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public String getId() {
-        return id;
+    public String getIdCliente() {
+        return idCliente;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdCliente(String id) {
+        this.idCliente = id;
     }
 }
