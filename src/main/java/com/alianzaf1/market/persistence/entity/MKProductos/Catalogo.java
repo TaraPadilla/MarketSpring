@@ -1,9 +1,10 @@
-package com.alianzaf1.market.persistence.entity;
+package com.alianzaf1.market.persistence.entity.MKProductos;
 
+import com.alianzaf1.market.persistence.entity.MKBases.Empresa;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "catalogo", schema = "products")
+@Table(name = "catalogo")
 public class Catalogo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

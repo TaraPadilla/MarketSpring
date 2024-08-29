@@ -1,5 +1,6 @@
-package com.alianzaf1.market.persistence.entity;
+package com.alianzaf1.market.persistence.entity.MKServicios;
 
+import com.alianzaf1.market.persistence.entity.MKBases.Empresa;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,10 +24,9 @@ public class Servicio {
         private String nombreServicio;
 
         @Column(nullable = false)
-        private Boolean visible = true;
+        private Boolean activo = true;
 
         @ManyToOne
         @JoinColumn(name = "id_empresa", nullable = false)
         private Empresa empresa;
-
 }

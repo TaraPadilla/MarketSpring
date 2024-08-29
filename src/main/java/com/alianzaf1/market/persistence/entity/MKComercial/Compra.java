@@ -1,9 +1,10 @@
-package com.alianzaf1.market.persistence.entity;
+package com.alianzaf1.market.persistence.entity.MKComercial;
 
+import com.alianzaf1.market.persistence.entity.MKBases.Cliente;
+import com.alianzaf1.market.persistence.entity.MKProductos.ComprasProducto;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity

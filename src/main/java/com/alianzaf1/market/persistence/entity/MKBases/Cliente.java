@@ -1,11 +1,12 @@
-package com.alianzaf1.market.persistence.entity;
+package com.alianzaf1.market.persistence.entity.MKBases;
 
+import com.alianzaf1.market.persistence.entity.MKComercial.Compra;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-@Table(name = "clientes", schema = "base")
+@Table(name = "clientes")
 public class Cliente {
     @Id
     @Column(name = "id", nullable = false)

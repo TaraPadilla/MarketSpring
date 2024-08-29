@@ -3,7 +3,7 @@ package com.alianzaf1.market.persistence;
 import com.alianzaf1.market.domain.Purchase;
 import com.alianzaf1.market.domain.repository.PurchaseRepository;
 import com.alianzaf1.market.persistence.repository.CompraCrudRepository;
-import com.alianzaf1.market.persistence.entity.Compra;
+import com.alianzaf1.market.persistence.entity.MKComercial.Compra;
 import com.alianzaf1.market.persistence.mapper.PurchaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

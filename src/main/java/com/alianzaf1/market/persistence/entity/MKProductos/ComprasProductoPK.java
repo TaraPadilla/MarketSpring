@@ -1,4 +1,4 @@
-package com.alianzaf1.market.persistence.entity;
+package com.alianzaf1.market.persistence.entity.MKProductos;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

@@ -1,14 +1,13 @@
 package com.alianzaf1.market.persistence.mapper;
 
 import com.alianzaf1.market.domain.Product;
-import com.alianzaf1.market.persistence.entity.Producto;
+import com.alianzaf1.market.persistence.entity.MKProductos.Producto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import java.util.List;
-import java.util.Optional;
 
 @Mapper(componentModel = "spring", uses = {CategoryMapper.class})
 public interface ProductMapper {

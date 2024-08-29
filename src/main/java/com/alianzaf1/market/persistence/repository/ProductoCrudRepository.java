@@ -1,6 +1,6 @@
 package com.alianzaf1.market.persistence.repository;
 
-import com.alianzaf1.market.persistence.entity.Producto;
+import com.alianzaf1.market.persistence.entity.MKProductos.Producto;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

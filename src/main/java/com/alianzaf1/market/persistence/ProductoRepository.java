@@ -2,7 +2,7 @@ package com.alianzaf1.market.persistence;
 import com.alianzaf1.market.domain.Product;
 import com.alianzaf1.market.domain.repository.ProductRepository;
 import com.alianzaf1.market.persistence.repository.ProductoCrudRepository;
-import com.alianzaf1.market.persistence.entity.Producto;
+import com.alianzaf1.market.persistence.entity.MKProductos.Producto;
 import com.alianzaf1.market.persistence.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

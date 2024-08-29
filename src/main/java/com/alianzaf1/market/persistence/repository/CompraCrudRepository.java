@@ -1,6 +1,6 @@
 package com.alianzaf1.market.persistence.repository;
 
-import com.alianzaf1.market.persistence.entity.Compra;
+import com.alianzaf1.market.persistence.entity.MKComercial.Compra;
 
 import org.springframework.data.repository.CrudRepository;
 

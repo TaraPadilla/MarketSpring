@@ -21,7 +21,7 @@ public class ProductController {
 
     @RequestMapping("/all")
     @Operation(summary = "Get all products",
-            description = "Traer todos los productos del market")
+            description     = "Traer todos los productos del market")
     @ApiResponse(responseCode = "200", description = "Productos OK")
     public ResponseEntity<List<Product>> getAll(){
        return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);

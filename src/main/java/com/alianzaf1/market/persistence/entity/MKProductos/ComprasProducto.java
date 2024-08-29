@@ -1,9 +1,9 @@
-package com.alianzaf1.market.persistence.entity;
+package com.alianzaf1.market.persistence.entity.MKProductos;
 
+import com.alianzaf1.market.persistence.entity.MKComercial.Compra;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "compras_productos")

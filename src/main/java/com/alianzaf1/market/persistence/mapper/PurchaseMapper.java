@@ -1,8 +1,7 @@
 package com.alianzaf1.market.persistence.mapper;
 
 import com.alianzaf1.market.domain.Purchase;
-import com.alianzaf1.market.persistence.entity.Compra;
-import com.alianzaf1.market.persistence.entity.ComprasProducto;
+import com.alianzaf1.market.persistence.entity.MKComercial.Compra;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

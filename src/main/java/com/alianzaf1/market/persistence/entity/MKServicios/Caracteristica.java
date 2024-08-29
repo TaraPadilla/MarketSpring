@@ -1,4 +1,4 @@
-package com.alianzaf1.market.persistence.entity;
+package com.alianzaf1.market.persistence.entity.MKServicios;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,13 +16,9 @@ public class Caracteristica {
     @Column(name = "id_caracteristica", nullable = false)
     private Integer idCaracteristica;
 
-    @Column(nullable = false, length = 255)
-    private String descripcion;
-
     @Column(nullable = false, length = 50)
     private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "id_servicio", nullable = true)
-    private Servicio servicio;
+    @Column(nullable = false, length = 255)
+    private String descripcion;
 }
