@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="servicio_cotizacion")
+@Table(name="servicio_cotizacion_item")
 @IdClass(ServicioCotizacionPK.class)
 @Getter
 @Setter
@@ -26,7 +26,7 @@ public class ServicioCotizacion {
     private Integer cantidad;
 
     @Column(nullable = false)
-    private Double precioItem;
+    private Double precio;
 
     @ManyToOne
     @JoinColumn(name = "id_servicio",referencedColumnName = "id_servicio",

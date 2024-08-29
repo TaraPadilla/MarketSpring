@@ -22,9 +22,6 @@ public class Cotizacion {
     @Column(name = "id_cotizacion", nullable = false)
     private Integer idCotizacion;
 
-    @Column(name = "id_usuario", nullable = false)
-    private Integer idUsuario;
-
     @Column(nullable = false, length = 255)
     private String estado;
 
@@ -37,11 +34,8 @@ public class Cotizacion {
     @Column(name = "precio_total", nullable = false)
     private Double precioTotal;
 
-    @OneToOne
-    @JoinColumn(name = "id_usuario", nullable = false, referencedColumnName = "id_usuario",
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false,
                 insertable = false, updatable = false )
     private Usuario usuario;
-
-    @OneToMany(mappedBy = "cotizacion")
-    List<ServicioCotizacion> items;
 }
